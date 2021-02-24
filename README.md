@@ -47,6 +47,26 @@ nextflow run MDU-PHL/kovid-trees-nf -profile singularity
 nextflow run MDU-PHL/kovid-trees-nf --input_aln relative/path/to/alignment.aln
 ```
 
+## Current output files
+
+| Filename                | Description                                                                  | Step                   |
+|-------------------------|------------------------------------------------------------------------------|------------------------|
+| `*_replace.aln`         | Remove any calls that are not ACGTacgt- (needed for FastTree)                | GOALIGN_CLEAN          |
+| `*_clean.aln`           | Cleaned up alignment of gappy sequences (removes sequences >5% missing data) | GOALIGN_CLEAN_SEQS     |
+| `*_filtered.aln`        | Remove gappy columns and columns with no phylogenetic value                  | CLIPKIT                |
+| `*_dedup.aln`           | Keep only unique sequences                                                   | GOALIGN_DEDUP          |
+| `*_compress.aln`        | Keep only unique columns                                                     | GOALIGN_COMPRESS       |
+| `*.weights`             | The count of occurrence for each pattern in the alignment                    | GOALIGN_COMPRESS       |
+| `*.nwk`                 | The FastTree newick file                                                     | FASTTREE               |
+| `*_resolve.nwk`         | Resolve multiforcations in the FastTree topology                             | GOTREE_RESOLVE         |
+| `*.raxml.bestTree`      | RAXML-NG branch length optimised tree branches                               | RAXMLNG_EVALUATE       |
+| `*_brlen_round.nwk`     | Round branch lengths                                                         | GOTREE_BRLEN_ROUND     |
+| `*_collapse_length.nwk` | Collapse branch lengths that are too small to be real                        | GOTREE_COLLAPSE_LENGTH |
+| `*_repopulate.nwk`      | Add back all the removed duplicate samples                                   | GOTREE_REPOPULATE      |
+| `*_order.nwk`           | Order nodes to make comparisons easier                                       | NWUTILS_ORDER          |
+| `*_reroot.nwk`          | Reroot the tree with the appropriate outbreak (e.g., Wuhan-1)                | NWUTILS_REROOT         |
+
+
 ## Pipeline details
 
 ```
@@ -155,3 +175,8 @@ NWUTILS_REROOT
         test_order.nwk \
         ref\|NC_045512.2\| > test_reroot.nwk
 ```
+
+## Authors
+
+- Anders Goncalves da Silva (@andersgs)
+- Torsten Seemann (@tseemann)
