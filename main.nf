@@ -3,10 +3,11 @@ nextflow.enable.dsl=2
 params.enable_conda = true
 params.publish_dir_mode = 'link'
 params.outdir = 'results'
-params.input_aln = 'tests/data/aln/raw_aln1.aln'
+params.input_aln = 'tests/data/aln/test_aln.aln'
 params.input_id = 'test'
 // clipkit params
 params.mode = 'kpic-smart-gap'
+params.clipkit_log = true
 // raxml params
 params.subst_model = false // use default GTR+G4
 params.force = false // use default perf_threads
@@ -14,7 +15,10 @@ params.force = false // use default perf_threads
 params.outgroup = 'ref\\|NC_045512.2\\|'
 
 include { GOALIGN_REPLACE } from './modules/goalign/replace/main.nf' addParams(options: [
-    args: "-e -s '^[ACTGactg]' -n '-'"
+    args: "-e -s '[^ACTGactg]' -n '-'"
+])
+include { GOALIGN_CLEAN_SEQS } from './modules/goalign/clean/seqs/main.nf' addParams(options: [
+    args: "--cutoff 0.05"
 ])
 include { CLIPKIT } from './modules/clipkit/main.nf' addParams([:])
 include { GOALIGN_DEDUP } from './modules/goalign/dedup/main.nf' addParams([:])
@@ -65,7 +69,8 @@ process get_software_versions {
 
 workflow {
     GOALIGN_REPLACE(data)
-    CLIPKIT(GOALIGN_REPLACE.out.aln)
+    GOALIGN_CLEAN_SEQS(GOALIGN_REPLACE.out.aln)
+    CLIPKIT(GOALIGN_CLEAN_SEQS.out.aln)
     GOALIGN_DEDUP(CLIPKIT.out.aln)
     GOALIGN_COMPRESS(GOALIGN_DEDUP.out.aln)
     FASTTREE(GOALIGN_COMPRESS.out.aln)
