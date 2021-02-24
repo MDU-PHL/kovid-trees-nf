@@ -13,9 +13,9 @@ process NWUTILS_REROOT {
     conda (params.enable_conda ? "bioconda::newick_utils=1.6" : null)
 
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/newick_utils=1.6--h516909a_3"
+        container "https://depot.galaxyproject.org/singularity/newick_utils:1.6--h516909a_3"
     } else {
-        container "quay.io/biocontainers/newick_utils=1.6--h516909a_3"
+        container "quay.io/biocontainers/newick_utils:1.6--h516909a_3"
     }
 
     input:
