@@ -26,25 +26,25 @@ elsewhere [ADD CITATIONS])
 - With conda:
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf -r e7da3c7
+nextflow run MDU-PHL/kovid-trees-nf
 ```
 
 - With docker
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf -r e7da3c7 -profile docker
+nextflow run MDU-PHL/kovid-trees-nf -profile docker
 ```
 
 - With singularity
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf -r e7da3c7 -profile singularity
+nextflow run MDU-PHL/kovid-trees-nf -profile singularity
 ```
 
 ## Running with your own dataset
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf -r e7da3c7 --input_aln relative/path/to/alignment.aln
+nextflow run MDU-PHL/kovid-trees-nf --input_aln relative/path/to/alignment.aln
 ```
 
 ## Pipeline details
