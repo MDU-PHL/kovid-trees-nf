@@ -1,0 +1,59 @@
+name: gotree_collapse_length
+description: Collapse short branches of the input tree.
+keywords:
+    - phylogenetic trees
+tools:
+    - gotree:
+        description: |
+            gotree is a set of tools to handle phylogenetic trees in go.
+        homepage: https://github.com/evolbioinfo/gotree
+        documentation: https://github.com/evolbioinfo/gotree/blob/master/docs/index.md
+params:
+    - outdir:
+        type: string
+        description: |
+            The pipeline's output directory. By default, the module will
+            output files into `$params.outdir/<SOFTWARE>`
+    - publish_dir_mode:
+        type: string
+        description: |
+            Value for the Nextflow `publishDir` mode parameter.
+            Available: symlink, rellink, link, copy, copyNoFollow, move.
+    - enable_conda:
+        type: boolean
+        description: |
+            Run the module with Conda using the software specified
+            via the `conda` directive
+    - singularity_pull_docker_container:
+        type: boolean
+        description: |
+            Instead of directly downloading Singularity images for use with Singularity,
+            force the workflow to pull and convert Docker containers instead.
+
+input:
+    - meta:
+        type: map
+        description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+    - nwk:
+        type: file
+        description: A phylogenetic tree in newick format
+        pattern: "*.{nwk}"
+
+output:
+    - meta:
+        type: map
+        description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+    - nwk:
+        type: file
+        description: A newick tree file with fixed branch lengths
+        pattern: "*.{nwk}"
+    - version:
+        type: file
+        description: File containing software version
+        pattern: "*.{version.txt}"
+authors:
+    - "@andersgs"
