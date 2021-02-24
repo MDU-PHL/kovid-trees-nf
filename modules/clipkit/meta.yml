@@ -1,0 +1,62 @@
+name: clipkit
+description: ClipKIT trims multiple sequence alignments and maintains phylogenetically informative sites.
+keywords:
+    - phylogeny
+    - alignment
+tools:
+    - clipkit:
+        description: |
+            ClipKIT is a fast and flexible alignment trimming tool that keeps phylogenetically 
+            informative sites and removes others.
+        homepage: https://github.com/jlsteenwyk/clipkit
+        documentation: https://jlsteenwyk.com/ClipKIT/
+        doi: 10.1371/journal.pbio.3001007
+params:
+    - outdir:
+        type: string
+        description: |
+            The pipeline's output directory. By default, the module will
+            output files into `$params.outdir/<SOFTWARE>`
+    - publish_dir_mode:
+        type: string
+        description: |
+            Value for the Nextflow `publishDir` mode parameter.
+            Available: symlink, rellink, link, copy, copyNoFollow, move.
+    - enable_conda:
+        type: boolean
+        description: |
+            Run the module with Conda using the software specified
+            via the `conda` directive
+    - singularity_pull_docker_container:
+        type: boolean
+        description: |
+            Instead of directly downloading Singularity images for use with Singularity,
+            force the workflow to pull and convert Docker containers instead.
+
+input:
+    - meta:
+        type: map
+        description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+    - aln:
+        type: file
+        description: A multi-sequence alignment file
+        pattern: "*.{fasta,clustal,maf,mauve,phylip,phylip-sequential,phylip-relaxed,stockholm}"
+
+output:
+    - meta:
+        type: map
+        description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+    - aln:
+        type: file
+        description: A filtered alignment according to the chosen mode
+        pattern: "*.{fasta,clustal,maf,mauve,phylip,phylip-sequential,phylip-relaxed,stockholm}"
+    - version:
+        type: file
+        description: File containing software version
+        pattern: "*.{version.txt}"
+authors:
+    - "@andersgs"
