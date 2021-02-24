@@ -35,6 +35,6 @@ process FASTTREE {
         -out ${prefix}.nwk \\
         -nt $aln
 
-    (fasttree 2>&1) | grep version | sed -e 's/.*version //g' -e 's/ Double.*\$//g' > ${software}.version.txt
+    (fasttree 2>&1 | grep version | sed -e 's/.*version //g' -e 's/ Double.*\$//g'  > ${prefix}.version.txt) || true
     """
 }
