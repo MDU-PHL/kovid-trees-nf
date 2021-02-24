@@ -22,17 +22,20 @@ process CLIPKIT {
 
     output:
     tuple val(meta), path("*_filtered.aln"), emit: aln
+    tuple val(meta), path("*.log"), optional: true, emit: log
     path "*.version.txt"          , emit: version
 
     script:
     def software = getSoftwareName(task.process)
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     def mode = params.mode ? "-m $params.mode" : "-m gappy"
+    def log = params.clipkit_log ? "-l" : ""
     """
     clipkit \\
         $aln \\
         $options.args \\
         ${mode} \\
+        ${log} \\
         -o ${prefix}_filtered.aln
 
     clipkit --version | sed 's/clipkit //g' > ${software}.version.txt

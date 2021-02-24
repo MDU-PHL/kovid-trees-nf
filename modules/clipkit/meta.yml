@@ -43,6 +43,10 @@ input:
         type: file
         description: A multi-sequence alignment file
         pattern: "*.{fasta,clustal,maf,mauve,phylip,phylip-sequential,phylip-relaxed,stockholm}"
+    - log:
+        type: file
+        description: A summary table with each row a column in the alignment [OPTIONAL]
+        pattern: "*.log"
 
 output:
     - meta:
