@@ -1,0 +1,61 @@
+name: fasttree
+description: FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences.
+keywords:
+    - phylogeny
+tools:
+    - fasttree:
+        description: |
+            FastTree infers approximately-maximum-likelihood phylogenetic trees from 
+            alignments of nucleotide or protein sequences. FastTree can handle alignments 
+            with up to a million of sequences in a reasonable amount of time and memory.
+        homepage: http://www.microbesonline.org/fasttree/
+        documentation: http://www.microbesonline.org/fasttree/#Usage
+params:
+    - outdir:
+        type: string
+        description: |
+            The pipeline's output directory. By default, the module will
+            output files into `$params.outdir/<SOFTWARE>`
+    - publish_dir_mode:
+        type: string
+        description: |
+            Value for the Nextflow `publishDir` mode parameter.
+            Available: symlink, rellink, link, copy, copyNoFollow, move.
+    - enable_conda:
+        type: boolean
+        description: |
+            Run the module with Conda using the software specified
+            via the `conda` directive
+    - singularity_pull_docker_container:
+        type: boolean
+        description: |
+            Instead of directly downloading Singularity images for use with Singularity,
+            force the workflow to pull and convert Docker containers instead.
+
+input:
+    - meta:
+        type: map
+        description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+    - aln:
+        type: file
+        description: A multi-sequence alignment file
+        pattern: "*.{afa,fasta,phy}"
+
+output:
+    - meta:
+        type: map
+        description: |
+            Groovy Map containing sample information
+            e.g. [ id:'test', single_end:false ]
+    - tree:
+        type: file
+        description: A phylogenetic tree in Newick format
+        pattern: "*.{nwk}"
+    - version:
+        type: file
+        description: File containing software version
+        pattern: "*.{version.txt}"
+authors:
+    - "@andersgs"
