@@ -43,6 +43,8 @@ nextflow run MDU-PHL/kovid-trees-nf -profile singularity
 
 ## Running with your own dataset
 
+All you need is an alignment file in multiFASTA format as input to the pipeline.
+
 ```bash
 nextflow run MDU-PHL/kovid-trees-nf --input_aln relative/path/to/alignment.aln
 ```
