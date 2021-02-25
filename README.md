@@ -26,19 +26,19 @@ elsewhere [ADD CITATIONS])
 - With conda:
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf
+nextflow run MDU-PHL/kovid-trees-nf --test
 ```
 
 - With docker
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf -profile docker
+nextflow run MDU-PHL/kovid-trees-nf -profile docker --test
 ```
 
 - With singularity
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf -profile singularity
+nextflow run MDU-PHL/kovid-trees-nf -profile singularity --test
 ```
 
 ## Running with your own dataset
@@ -46,7 +46,7 @@ nextflow run MDU-PHL/kovid-trees-nf -profile singularity
 All you need is an alignment file in multiFASTA format as input to the pipeline.
 
 ```bash
-nextflow run MDU-PHL/kovid-trees-nf --input_aln relative/path/to/alignment.aln
+nextflow run MDU-PHL/kovid-trees-nf --input_aln relative/path/to/alignment.aln --input_id aln_20210201
 ```
 
 ## Current output files

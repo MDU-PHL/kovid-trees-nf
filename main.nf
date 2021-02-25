@@ -5,6 +5,7 @@ params.publish_dir_mode = 'link'
 params.outdir = 'results'
 params.input_aln = 'tests/data/aln/test_aln.aln'
 params.input_id = 'test'
+params.test = false
 // clipkit params
 params.mode = 'kpic-smart-gap'
 params.clipkit_log = true
@@ -40,7 +41,8 @@ include { GOTREE_REPOPULATE } from './modules/gotree/repopulate/main.nf' addPara
 include { NWUTILS_ORDER } from './modules/newick_utils/order/main.nf' addParams([:])
 include { NWUTILS_REROOT } from './modules/newick_utils/reroot/main.nf' addParams([:])
 
-def data = [[id: "${params.input_id}"], file("${baseDir}/${params.input_aln}", checkIfExists: true)]
+def workdir = params.test ? "${baseDir}" : "${launchDir}"
+def data = [[id: "${params.input_id}"], file("${workdir}/${params.input_aln}", checkIfExists: true)]
 
 /*
  * Parse software version numbers
