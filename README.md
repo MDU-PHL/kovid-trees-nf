@@ -51,7 +51,7 @@ nextflow run MDU-PHL/kovid-trees-nf --input_aln relative/path/to/alignment.aln
 
 | Filename                | Description                                                                  | Step                   |
 |-------------------------|------------------------------------------------------------------------------|------------------------|
-| `*_replace.aln`         | Remove any calls that are not ACGTacgt- (needed for FastTree)                | GOALIGN_CLEAN          |
+| `*_replace.aln`         | Replaces any calls that are not `ACGTacgt-` with `-` (needed for FastTree)   | GOALIGN_CLEAN          |
 | `*_clean.aln`           | Cleaned up alignment of gappy sequences (removes sequences >5% missing data) | GOALIGN_CLEAN_SEQS     |
 | `*_filtered.aln`        | Remove gappy columns and columns with no phylogenetic value                  | CLIPKIT                |
 | `*_dedup.aln`           | Keep only unique sequences                                                   | GOALIGN_DEDUP          |
